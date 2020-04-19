@@ -3,11 +3,11 @@ function _rider_theme_get_duration
 	set -l minutes (math "$seconds / 60")
 	set -l hours (math "$minutes / 60")
 
-	if test $hours -gt 0
+	if test $hours -gt 1
 		echo "$hours hrs"
 	else if test $minutes -gt 1
 		echo "$minutes mins"
-	else if test $seconds -gt 0
+	else if test $seconds -gt 1
 		echo "$seconds s"
 	else
 		echo "$CMD_DURATION ms"
