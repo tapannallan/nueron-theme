@@ -27,27 +27,25 @@ function fish_prompt
 	end
 
 	if [ (_rider_theme_git_branch_name) ]
-		if test (_rider_theme_git_branch_name) = 'master'
-			set -l git_branch (_rider_theme_git_branch_name)
-			set git_info "$cyan ($red$git_branch$cyan)$normal"
-		else if test (_rider_theme_git_branch_name) = 'develop'
-			set -l git_branch (_rider_theme_git_branch_name)
-			set git_info "$cyan ($yellow$git_branch$cyan)$normal"
-		else if test (_rider_theme_git_branch_name) = 'release'
-			set -l git_branch (_rider_theme_git_branch_name)
-			set git_info "$cyan ($orange$git_branch$cyan)$normal"
-		else
-			set -l git_branch (_rider_theme_git_branch_name)
-			set git_info "$cyan ($green$git_branch$cyan)$normal"
+		set branch_name (_rider_theme_git_branch_name | tr '[:upper:]' '[:lower:]')
+		switch $branch_name
+			case 'master'
+				set git_info "$cyan ($red$branch_name$cyan)$normal"
+			case 'develop'
+				set git_info "$cyan ($yellow$branch_name$cyan)$normal"
+			case 'release'
+				set git_info "$cyan ($orange$branch_name$cyan)$normal"
+			case '*'
+				set git_info "$cyan ($red$branch_name$cyan)$normal"
 		end
 	end
 
 	switch $ENV_CONTEXT
 		case 'VERIMI'
-			echo "$status_indicator$magenta [$ENVNUM]$blue$cwd$git_info"
+			echo "$status_indicator$magenta [$ENVNUM]$blue$cwd$git_info $normal"
 		case 'PERSONAL'
-			echo "$green$USER $magenta$lambda $blue$cwd $status_indicator$git_info $normal"
+			echo "$status_indicator$magenta $blue$cwd$git_info $normal"
 		case '*'
-			echo "$green$USER $magenta$lambda $blue$cwd $status_indicator$git_info $normal"
+			echo "$status_indicator$magenta $blue$cwd$git_info $normal"
 	end
 end
