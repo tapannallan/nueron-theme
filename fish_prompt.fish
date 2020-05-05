@@ -14,7 +14,7 @@ function fish_prompt
 	set -l blue (set_color blue)
 	set -l cyan (set_color cyan)
 	set -l gray (set_color 555)
-	set -l orange (set_color orange)
+	set -l orange (set_color FF4500)
 
 	set -l cwd (prompt_pwd)
 
